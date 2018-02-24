@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.Linq;
 using System.Linq.Expressions;
@@ -13,12 +14,11 @@ namespace Lbl.Service
     public class BaseService<T,TR,TV> where T:Entity where TR:BaseRequestModel<T> where TV: BaseViewModel<T>
     {
         GenericRepository<T> repository;
-        public BaseService()
+        public BaseService(DbContext dbContext)
         {
-            
-            repository = new GenericRepository<T>();
+            repository = new GenericRepository<T>(dbContext);
         }
-         public IQueryable<T> SearchQueryable(BaseRequestModel<T> request)
+        public IQueryable<T> SearchQueryable(BaseRequestModel<T> request)
         {
             IQueryable<T> queryable = repository.Get();
             Expression<Func<T, bool>> expression = request.GetExpression();

@@ -12,7 +12,16 @@ namespace LBL.ServerT1.Models
         [Display(Name = "External access token")]
         public string ExternalAccessToken { get; set; }
     }
+    public class RoleBindingModel
+    {
+        [Required]
+        [Display(Name = "Name")]
+        public string Name { get; set; }
 
+        [Required]
+        [Display(Name = "LandingRoute")]
+        public string LandingRoute { get; set; }
+    }
     public class ChangePasswordBindingModel
     {
         [Required]

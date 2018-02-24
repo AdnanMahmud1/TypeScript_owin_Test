@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.Linq;
 using Lbl.Model.Student;
@@ -38,5 +39,8 @@ namespace Lbl.Service
         //    StudentDetailViewModel vm = new StudentDetailViewModel(x);
         //    return vm;
         //}
+        public StudentService(DbContext dbContext) : base(dbContext)
+        {
+        }
     }
 }

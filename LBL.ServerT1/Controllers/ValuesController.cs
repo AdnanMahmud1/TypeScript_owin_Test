@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 using System.Web.Http;
-using Lbl.Model;
-using LBL.ServerT1.Models;
-using Microsoft.AspNet.Identity.Owin;
 
 namespace LBL.ServerT1.Controllers
 {

@@ -6,12 +6,13 @@ using Lbl.Model.Student;
 
 namespace Lbl.Repository
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T:Entity
+    public class GenericRepository<T> : IGenericRepository<T> where T:class 
     {
-        protected BusinessBdContext db;
-        public GenericRepository()
+        protected DbContext db;
+
+        public GenericRepository(DbContext dbContext)
         {
-            db = new BusinessBdContext();
+            this.db = dbContext;
         }
 
         public bool Add(T entity)
@@ -37,10 +38,10 @@ namespace Lbl.Repository
             return i > 0;
         }
 
-        public virtual bool Exists(string id)
-        {
-            return this.db.Set<T>().Any(x=>x.Id==id);
-        }
+        //public virtual bool Exists(string id)
+        //{
+        //    return this.db.Set<T>().Any(x=>x.Id==id);
+        //}
 
         public virtual IEnumerable<T> Add(IEnumerable<T> entites)
         {
