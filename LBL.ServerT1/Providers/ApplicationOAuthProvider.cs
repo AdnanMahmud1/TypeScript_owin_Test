@@ -90,11 +90,13 @@ namespace LBL.ServerT1.Providers
 
         public static AuthenticationProperties CreateProperties(string userName)
         {
-            IDictionary<string, string> data = new Dictionary<string, string>
+            var serializeObject = Newtonsoft.Json.JsonConvert.SerializeObject(new List<string>{"lebel-header"});
+            var data = new Dictionary<string, string>
             {
                 { "userName", userName },
-                { "requestId",Guid.NewGuid().ToString()},
-                {"landingRoute","root.home"}
+                { "requestId", Guid.NewGuid().ToString()},
+                { "landingRoute", "root.home"},
+                { "resources", serializeObject }
             };
             return new AuthenticationProperties(data);
         }

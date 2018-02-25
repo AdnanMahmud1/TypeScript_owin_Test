@@ -9,7 +9,7 @@ namespace LBL.ServerT1.Controllers
     [RoutePrefix("api/Content")]
     public class ContentController : BaseController<Content, ContentRequestModel, ContentViewModel>
     {
-        public ContentController() : base(new ApplicationDbContext())
+        public ContentController() : base(new BusinessBdContext())
         {
 
         }

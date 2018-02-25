@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using Lbl.Model;
 using Lbl.Model.Student;
 using Lbl.RequestModel;
 using Lbl.ViewModel;
@@ -9,7 +10,7 @@ namespace LBL.ServerT1.Controllers
     [RoutePrefix("api/Student")]
     public class StudentController : BaseController<Student, StudentRequestModel,StudentViewModel>
     {
-        public StudentController():base(new ApplicationDbContext())
+        public StudentController():base(new BusinessBdContext())
         {
             
         }

@@ -9,7 +9,7 @@ namespace LBL.ServerT1.Controllers
     [RoutePrefix("api/Teacher")]
     public class TeacherController : BaseController<Teacher,TeacherRequestModel,TeacherViewModel>
     {
-        public TeacherController():base(new ApplicationDbContext())
+        public TeacherController():base(new BusinessBdContext())
         {
             
         }

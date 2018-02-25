@@ -9,7 +9,7 @@ namespace LBL.ServerT1.Controllers
     [RoutePrefix("api/EnrollmentQuery")]
     public class EnrollmentQueryController : BaseQueryController<Enrollment,EnrollmentRequestModel,EnrollmentViewModel>
     {
-        public EnrollmentQueryController():base(new ApplicationDbContext())
+        public EnrollmentQueryController():base(new BusinessBdContext())
         {
             
         }

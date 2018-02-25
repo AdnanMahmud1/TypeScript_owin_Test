@@ -10,7 +10,7 @@ namespace LBL.ServerT1.Controllers
     [RoutePrefix("api/CourseQuery")]
     public class CourseQueryController : BaseQueryController<Course,CourseRequestModel,CourseViewModel>
     {
-        public CourseQueryController() : base(new ApplicationDbContext())
+        public CourseQueryController() : base(new BusinessBdContext())
         {
             
         }

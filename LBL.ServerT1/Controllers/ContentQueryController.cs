@@ -9,7 +9,7 @@ namespace LBL.ServerT1.Controllers
     [RoutePrefix("api/contentQuery")]
     public class ContentQueryController : BaseQueryController<Content,ContentRequestModel,ContentViewModel>
     {
-        public ContentQueryController():base(new ApplicationDbContext())
+        public ContentQueryController():base(new BusinessBdContext())
         {
             
         }
