@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
@@ -30,8 +28,9 @@ namespace LBL.ServerT1.Providers
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
             context.OwinContext.Request.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
-            //context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+           
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
+            var dbContext = context.OwinContext.Get<ApplicationDbContext>();
 
             ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
 
@@ -46,7 +45,7 @@ namespace LBL.ServerT1.Providers
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
                 CookieAuthenticationDefaults.AuthenticationType);
 
-            AuthenticationProperties properties = CreateProperties(user.UserName);
+            AuthenticationProperties properties = CreateProperties(user,dbContext);
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
@@ -88,12 +87,13 @@ namespace LBL.ServerT1.Providers
             return Task.FromResult<object>(null);
         }
 
-        public static AuthenticationProperties CreateProperties(string userName)
+        public static AuthenticationProperties CreateProperties(ApplicationUser user,ApplicationDbContext dbContext)
         {
+            var roles = dbContext.Roles.FirstOrDefault();
             var serializeObject = Newtonsoft.Json.JsonConvert.SerializeObject(new List<string>{"lebel-header"});
             var data = new Dictionary<string, string>
             {
-                { "userName", userName },
+                { "userName", user.UserName },
                 { "requestId", Guid.NewGuid().ToString()},
                 { "landingRoute", "root.home"},
                 { "resources", serializeObject }
