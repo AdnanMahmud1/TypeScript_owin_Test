@@ -6,7 +6,7 @@ namespace LBL.ServerT1.Controllers
    
     public class ValuesController : ApiController
     {
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public string Get()
         {
             return Guid.NewGuid().ToString();
