@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using Lbl.Model.Student;
 using Lbl.Repository;
 using Lbl.RequestModel;
@@ -29,6 +30,7 @@ namespace Lbl.Service
             return queryable;
         }
 
+       
         public bool Add(T model)
         {
             //var repository = new GenericRepository<T>();
@@ -51,7 +53,13 @@ namespace Lbl.Service
             var list = queryable.ToList().ConvertAll(CreateVmInstances);
             return list;
         }
-
+        public async Task<List<TV>> SearchAsync(TR request)
+        {
+            var queryable = SearchQueryable(request);
+            List<T> list1 =await queryable.ToListAsync();
+            var list = list1.ConvertAll(CreateVmInstances);
+            return list;
+        }
         private static TV CreateVmInstances(T x)
         {
             return (TV) Activator.CreateInstance(typeof(TV),x);

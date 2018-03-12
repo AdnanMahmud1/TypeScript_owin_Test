@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Threading.Tasks;
+using System.Web.Http;
 using Lbl.Model;
 using Lbl.RequestModel;
 using Lbl.ViewModel;
@@ -12,7 +13,13 @@ namespace LBL.ServerT1.Controllers
     {
         public CourseQueryController() : base(new BusinessBdContext())
         {
-            
         }
+
+        public async Task<IHttpActionResult> PublicCourses(CourseRequestModel request)
+        {
+            var list =await service.SearchAsync(request);
+            return Ok(list);
+        }
+
     }
 }
